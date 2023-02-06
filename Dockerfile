@@ -1,8 +1,6 @@
-FROM python:3.7
-
-RUN apt-get update -y 
-COPY ./ /app
+FROM python:3.10.9
 WORKDIR /app
-RUN pip install flask
-ENTRYPOINT [ "python" ]
-CMD [ "run.py" ]
+COPY . /app
+RUN pip install -r requirements.txt
+EXPOSE 5000
+CMD ["flask", "run", "--host=0.0.0.0"]
