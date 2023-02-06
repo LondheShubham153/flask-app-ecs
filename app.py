@@ -1,30 +1,7 @@
 from flask import Flask
-
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
-
-# app = Flask(__name__)
-
-# @app.route('/')
-# def hello_world():
-#     return 'Hey, welcome to DevOps batch 2'
-
-# @app.route('/health')
-# def health():
-#     return 'Server is up and running'
-
-
-# app = Flask(__name__)
-#
-#
-# @app.route('/')
-# def hello_world():  # put application's code here
-#     return 'Hello World!'
-#
-#
-# if __name__ == '__main__':
-#     app.run()
 
 
 db = SQLAlchemy()
