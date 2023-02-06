@@ -32,4 +32,6 @@ $ pip install -r requirements.txt<br>
 Run the Flask development server.<br>
 
 $ flask run<br>
-Visit http://localhost:5000 in your web browser to view the application.
+Visit http://localhost:5000 in your web browser to view the application.<br>
+<h2>Deployment</h2><br>
+This application is ready to be deployed to a production environment.
