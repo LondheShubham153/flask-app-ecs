@@ -6,7 +6,7 @@ User authentication and authorization using Flask-Login<br>
 Database integration using Flask-SQLAlchemy<br>
 Dynamic page generation using Jinja2 templates<br>
 
-ollow these steps to set up the environment and run the application.
+Follow these steps to set up the environment and run the application.
 
 <h2>Prerequisites</h2>
 Python 3.x (recommended 3.7 or above)<br>
