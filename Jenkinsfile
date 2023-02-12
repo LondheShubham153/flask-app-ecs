@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Buid'){
              steps{
-                 sh 'docker build . -t iamjkr/flask:latest'
+                 sh 'docker build . -t iamjkr/flask-cicd:latest'
             }
             
         }
@@ -20,7 +20,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'dockerHub',usernameVariable: 'docker_username', passwordVariable: 'docker_password')])
                 {
                     sh 'docker login -u $docker_username -p $docker_password'
-                    sh 'docker push iamjkr/flask:latest'
+                    sh 'docker push iamjkr/flask-cicd:latest'
                 }
             }
         }
@@ -34,7 +34,7 @@ pipeline {
         }
         stage('Deploy'){
             steps{
-                sh 'docker-compose up -d --no-deps'
+                sh 'docker-compose down && docker-compose up -d --no-deps'
             }
             
         }
