@@ -1,9 +1,7 @@
-version: '3'
+version: '3.9'
 
 services:
   web:
     image: iamjkr/flask:latest
     ports:
       - "5000:5000"
-    volumes:
-      - .:/app
