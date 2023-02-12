@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Code'){
             steps{
-               git 'https://github.com/iamjkr/ecom_jkmart.git'
+               git 'https://github.com/iamjkr/flask-app-ecs.git'
             
             }
             
