@@ -34,7 +34,7 @@ pipeline {
         }
         stage('Deploy'){
             steps{
-                sh 'docker-compose down && docker-compose up -d --no-deps'
+                sh 'docker-compose up -d --no-deps'
             }
             
         }
