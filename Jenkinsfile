@@ -20,7 +20,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'dockerHub',usernameVariable: 'docker_username', passwordVariable: 'docker_password')])
                 {
                     sh 'docker login -u $docker_username -p $docker_password'
-                    sh 'docker push iamjkr/ecom-web:latest'
+                    sh 'docker push iamjkr/flask:latest'
                 }
             }
         }
