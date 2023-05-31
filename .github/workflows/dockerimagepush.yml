@@ -1,0 +1,32 @@
+name: Build and Push Docker Image to DockerHub
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USER }}
+  DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+  REPO_NAME:  ${{ github.event.repository.name }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Install Trivy
+        run: |
+          wget https://github.com/aquasecurity/trivy/releases/download/v0.18.3/trivy_0.18.3_Linux-64bit.deb
+          sudo dpkg -i trivy_0.18.3_Linux-64bit.deb   
+      - name: Build Docker Image
+        run: docker build -t "${DOCKERHUB_USERNAME}/${REPO_NAME}:$GITHUB_RUN_NUMBER" .
+      - name: Scan container images
+        run: |
+          trivy image "${DOCKERHUB_USERNAME}/${REPO_NAME}:$GITHUB_RUN_NUMBER"
+      - name: Login to DockerHub
+        run: echo "${DOCKERHUB_TOKEN}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
+      - name: Push Docker Image to DockerHub
+        run: docker push "${DOCKERHUB_USERNAME}/${REPO_NAME}:$GITHUB_RUN_NUMBER"
+      
