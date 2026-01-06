@@ -24,6 +24,6 @@ RUN apt-get update && \
 COPY --from=builder /install /usr/local/lib/python3.9/site-packages/
 COPY --from=builder /app/run.py /app/run.py
 
-EXPOSE 8000
+EXPOSE 80
 CMD ["python", "run.py"]
 
