@@ -9,7 +9,7 @@ COPY run.py .
 #Install all the dependencies specified in the requirements.txt file
 RUN pip install -r requirements.txt
 #Expose the port number on wich your application will be running
-EXPOSE 8000
+EXPOSE 80
 #Command to run the application
 CMD ["python","run.py"]
 
