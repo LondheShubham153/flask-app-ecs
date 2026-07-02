@@ -1,0 +1,34 @@
+name: Main Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-test:
+    uses: ./.github/workflows/reusable-build-test.yml
+    with:
+      python_version: "3.13"
+      run_tests: true
+
+  docker:
+    needs: build-test
+    uses: ./.github/workflows/reusable-docker.yml
+    with:
+      image_name: flask-app-ecs
+      tag: latest
+    secrets:
+      docker_username: ${{ secrets.docker_username }}
+      docker_token: ${{ secrets.docker_token }}
+
+  deploy:
+    name: Deploy to Production
+    needs: docker
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Deploy Application
+        run: |
+          echo "Deploying image: ${{ needs.docker.outputs.image_url }} to production"

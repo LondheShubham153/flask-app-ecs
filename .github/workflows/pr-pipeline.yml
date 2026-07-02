@@ -1,0 +1,46 @@
+name: PR Pipeline
+
+
+permissions:
+  contents: read
+  pull-requests: write  
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  # Job 1: Build and Test
+  build-test:
+    uses: ./.github/workflows/reusable-build-test.yml
+    with:
+      python_version: "3.13"
+      run_tests: true
+
+  # Job 2: Check Dependencies for Vulnerabilities (NEW - #TASK 3)
+  dependency-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Check Dependencies for Vulnerabilities
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: critical
+
+  # Job 3: PR Summary
+  pr-comment:
+    name: PR Summary
+    needs: [build-test, dependency-review]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print PR Summary
+        run: |
+          echo "PR checks passed for branch: ${{ github.head_ref }}"
+          echo "Build and Tests passed"
+          echo "Dependency review passed"
